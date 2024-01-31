@@ -1,0 +1,31 @@
+{
+  "name": "movie_api",
+  "version": "1.0.0",
+  "description": "MovieAPI to display movies and how to make orders for a collections or a single movie",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Jalagatha/movie_api_ivanj.git"
+  },
+  "author": "Mugisha Ivan Jalagatha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Jalagatha/movie_api_ivanj/issues"
+  },
+  "homepage": "https://github.com/Jalagatha/movie_api_ivanj#readme",
+  "dependencies": {
+    "@prisma/client": "^5.6.0",
+    "bcrypt": "^5.1.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.0.2"
+  },
+  "devDependencies": {
+    "prisma": "^5.6.0"
+  }
+}

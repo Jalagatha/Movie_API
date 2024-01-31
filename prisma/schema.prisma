@@ -1,0 +1,94 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  userName  String
+  email     String   @unique
+  password  String
+  avatar    String   @default("")
+  role      String   @default("user")
+  createdAt DateTime @default(now())
+  orders    Order[]
+}
+
+// Define enum values for category
+enum Genre {
+  Actions
+  Adventures
+  Animations
+  Comedy
+  Crimes
+  Documentary
+  Drama
+  Family
+  Fantasy
+  History
+  Horror
+  Mystery
+  Romance
+  ScienceFiction
+  Thrillers
+  Wars
+  Western
+}
+
+model Movie {
+  id          Int    @id @default(autoincrement()) //TODO @default(uuid())
+  title       String @unique
+  description String
+  price       Float
+  ratings     Float  @default(0) // rate the movies
+  director    String
+  genre       Genre
+
+  Order                 Order?   @relation(fields: [orderOrderId], references: [orderId])
+  orderOrderNumber      Int?
+  image                 String
+  reviews               Review[]
+  createdAt             DateTime @default(now())
+  tailer                String
+  imdbRatings           Int?
+  rottenTomatoesRatings Int
+  orderOrderId          Int?
+}
+
+model Review {
+  id        Int      @id @default(autoincrement())
+  userId    Int?
+  rating    Float
+  comment   String
+  createdAt DateTime @default(now())
+  movieId   Int
+  Movie     Movie    @relation(fields: [movieId], references: [id])
+}
+
+model Order {
+  orderId     Int           @id @default(autoincrement())
+  userId      Int?
+  movieId     Int
+  movies      Movie[]
+  User        User?         @relation(fields: [userId], references: [id])
+  createdAt   DateTime      @default(now())
+  PaymentInfo PaymentInfo[]
+}
+
+model PaymentInfo {
+  id           Int    @id @default(autoincrement())
+  paymentId    Int
+  order        Order  @relation(fields: [orderOrderId], references: [orderId])
+  status       String
+  tax          Float
+  moviePrice   Float
+  orderNumber  Int
+  orderOrderId Int
+}
